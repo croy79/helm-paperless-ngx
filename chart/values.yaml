@@ -298,6 +298,20 @@ config:
       user: paperless-user
       # -- mariadb password to use for our connection
       pass: password
+    # -- only needed when type is postgresql and postgresql.enabled is set to false
+    #    meaning you would use an external already existing postgresql instance
+    # @default -- See [values.yaml](./values.yaml)
+    postgresql:
+      # -- hostname where your external postgresql is reachable
+      host: localhost
+      # -- port to connect to
+      port: 5432
+      # -- database schema that holds the paperless tables
+      schema: paperless
+      # -- postgresql user to use for our connection
+      user: paperless
+      # -- pre-existing secret to provide credentials, must contain the key password
+      existing_secret:
   # -- Url where paperless is reachable via browser (including http(s)://)
   paperless_url: "https://paperless.domain"
   # -- Languages to be used for ocr (only pre-installed languages are supported)
