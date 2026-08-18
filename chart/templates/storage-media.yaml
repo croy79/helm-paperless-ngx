@@ -11,7 +11,7 @@ spec:
   storageClassName: {{ .Values.mediaVolume.volumeSpec.storageClassName | quote }}
   selector:
     matchLabels:
-      {{- include "common.labels.matchLabels" $ | nindent 6 }}
+      {{- include "paperless.selectorLabels" $ | nindent 6 }}
       paperless-ngx-volume: {{ .Values.mediaVolume.name }}
   accessModes: {{ toYaml .Values.mediaVolume.volumeSpec.accessModes | nindent 4 }}
   resources:
