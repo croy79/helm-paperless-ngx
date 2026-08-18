@@ -146,6 +146,22 @@ Create chart environment and make it reusable
     secretKeyRef:
       name: {{ printf "%s-postgresql" .Release.Name | quote }}
       key: password
+{{- else if contains "postgresql" .Values.config.database.type }}
+- name: PAPERLESS_DBENGINE
+  value: "postgresql"
+- name: PAPERLESS_DBHOST
+  value: {{ .Values.config.database.postgresql.host | quote }}
+- name: PAPERLESS_DBPORT
+  value: {{ .Values.config.database.postgresql.port | quote }}
+- name: PAPERLESS_DBUSER
+  value: {{ .Values.config.database.postgresql.user | quote }}
+- name: PAPERLESS_DBNAME
+  value: {{ .Values.config.database.postgresql.schema | quote }}
+- name: PAPERLESS_DBPASS
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.config.database.postgresql.existing_secret | quote }}
+      key: password
 {{- else }}
 - name: PAPERLESS_DBENGINE
   value: ""
